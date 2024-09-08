@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5ypvqu6ak07y"]
+
+[ext_resource type="Script" path="res://Scene/enemy_slime.gd" id="1_imgxp"]
+[ext_resource type="PackedScene" uid="uid://dccf1unag65gr" path="res://killzone.tscn" id="2_h60ps"]
+[ext_resource type="Texture2D" uid="uid://bdwmg6lw063kb" path="res://assets/sprites/slime_green.png" id="2_r6rpu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h4gk"]
+atlas = ExtResource("2_r6rpu")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxfra"]
+atlas = ExtResource("2_r6rpu")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsgh0"]
+atlas = ExtResource("2_r6rpu")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3sf4"]
+atlas = ExtResource("2_r6rpu")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3hfxx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h4gk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxfra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsgh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3sf4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkkab"]
+size = Vector2(9, 10)
+
+[node name="Enemy_Slime" type="Node2D"]
+script = ExtResource("1_imgxp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3hfxx")
+autoplay = "default"
+
+[node name="Killzone" parent="." instance=ExtResource("2_h60ps")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0.5, 6)
+shape = SubResource("RectangleShape2D_xkkab")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(14, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-12, 0)
